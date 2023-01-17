@@ -91,7 +91,7 @@ vnoremap K :m '<-2<CR>gv=gv
 nnoremap J mzJ`z
 
 tnoremap <Esc> <C-\><C-n>
-nnoremap <F4> :q!<CR>
+nnoremap <F3> :q!<CR>
 nnoremap <F6> :wqall<CR>
 vnoremap p "_dP
 
