@@ -21,3 +21,7 @@ vim.keymap.set('n', '<leader>ut', vim.cmd.UndotreeToggle, {})
 
 --fugitive keybinds
 vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
+
+-- nvim tree keybinds
+vim.keymap.set('n', '<leader>e', vim.cmd.NvimTreeToggle)
+
