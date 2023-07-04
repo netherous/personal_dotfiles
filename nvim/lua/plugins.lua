@@ -27,6 +27,12 @@ return require('packer').startup(function(use)
 			vim.cmd('colorscheme gruvbox')
 		end
 	})
+	use {
+		'nvim-tree/nvim-tree.lua',
+		-- requires = {
+		-- 	'nvim-tree/nvim-web-devicons', -- optional
+		-- },
+	}	
 	use 'jiangmiao/auto-pairs'
 	use 'nvim-lualine/lualine.nvim'
 	use ('nvim-treesitter/nvim-treesitter', {run= ':TSUpdate'})
@@ -41,6 +47,7 @@ return require('packer').startup(function(use)
 			require('Comment').setup()
 		end
 	}
+	-- lsp plugins
 	use {
 		'VonHeikemen/lsp-zero.nvim',
 		requires = {
