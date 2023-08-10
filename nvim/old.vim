@@ -6,7 +6,7 @@ syntax enable
 set tags=tags
 autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
 set exrc
-set completeopt=menu,menuone,preview
+" set completeopt=menu,menuone,preview
 set guicursor = ""
 set mouse=a
 set relativenumber

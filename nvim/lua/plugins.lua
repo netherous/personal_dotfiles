@@ -4,9 +4,9 @@
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  is_bootstrap = true
-  vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
-  vim.cmd [[packadd packer.nvim]]
+	is_bootstrap = true
+	vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+	vim.cmd [[packadd packer.nvim]]
 end
 -- Only required if you have packer configured as `opt`
 
@@ -16,7 +16,7 @@ return require('packer').startup(function(use)
 	use {
 		'nvim-telescope/telescope.nvim', tag = '0.1.0',
 		-- or                            , branch = '0.1.x',
-		requires = { {'nvim-lua/plenary.nvim'} }
+		requires = { { 'nvim-lua/plenary.nvim' } }
 	}
 	-- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
 	use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
@@ -32,10 +32,17 @@ return require('packer').startup(function(use)
 		-- requires = {
 		-- 	'nvim-tree/nvim-web-devicons', -- optional
 		-- },
-	}	
+	} -- install without yarn or npm
+	use({
+		"iamcco/markdown-preview.nvim",
+		run = "cd app && npm install",
+		setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
+		ft = { "markdown" },
+	})
+	vim.g.mkdp_command_for_global = true
 	use 'jiangmiao/auto-pairs'
 	use 'nvim-lualine/lualine.nvim'
-	use ('nvim-treesitter/nvim-treesitter', {run= ':TSUpdate'})
+	use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
 	use 'nvim-treesitter/playground'
 	use 'mbbill/undotree'
 	use 'tpope/vim-fugitive'
@@ -52,23 +59,21 @@ return require('packer').startup(function(use)
 		'VonHeikemen/lsp-zero.nvim',
 		requires = {
 			-- LSP Support
-			{'neovim/nvim-lspconfig'},
-			{'williamboman/mason.nvim'},
-			{'williamboman/mason-lspconfig.nvim'},
+			{ 'neovim/nvim-lspconfig' },
+			{ 'williamboman/mason.nvim' },
+			{ 'williamboman/mason-lspconfig.nvim' },
 
 			-- Autocompletion
-			{'hrsh7th/nvim-cmp'},
-			{'hrsh7th/cmp-buffer'},
-			{'hrsh7th/cmp-path'},
-			{'saadparwaiz1/cmp_luasnip'},
-			{'hrsh7th/cmp-nvim-lsp'},
-			{'hrsh7th/cmp-nvim-lua'},
+			{ 'hrsh7th/nvim-cmp' },
+			{ 'hrsh7th/cmp-buffer' },
+			{ 'hrsh7th/cmp-path' },
+			{ 'saadparwaiz1/cmp_luasnip' },
+			{ 'hrsh7th/cmp-nvim-lsp' },
+			{ 'hrsh7th/cmp-nvim-lua' },
 
 			-- Snippets
-			{'L3MON4D3/LuaSnip'},
-			{'rafamadriz/friendly-snippets'},
+			{ 'L3MON4D3/LuaSnip' },
+			{ 'rafamadriz/friendly-snippets' },
 		}
 	}
 end)
-
-
