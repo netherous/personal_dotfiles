@@ -7,6 +7,16 @@ lsp.on_attach(function(client, bufnr)
 	lsp.buffer_autoformat()
 end)
 
+-- lsp.format_mapping('gq', {
+-- 	format_opts = {
+-- 		async = true,
+-- 		timeout_ms = 10000,
+-- 	},
+-- 	servers = {
+-- 		['lua_ls'] = { 'lua' },
+-- 		['rust_analyzer'] = { 'rust' },
+-- 	}
+-- })
 lsp.setup()
 lsp.set_preferences({
 	suggest_lsp_servers = true,

@@ -74,7 +74,7 @@ nnoremap N Nzz
 " nnoremap ,<F3> :ALEEnable<CR>
 
 
-map <F5> :<C-U>!g++ -w -O -std=c++17 % -o %:r && ./%:r <CR>
+map <F5> :<C-U>!g++ -w -O -std=c++20 % -o %:r && ./%:r <CR>
 nnoremap ,t :term<CR>
 nnoremap ,st :sp<bar> resize 9 <bar> term<CR>
 nnoremap ,vt :vsp<bar>vert resize 55<bar>term<CR>
