@@ -1,13 +1,11 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=/Applications/Alacritty.app/Contents/MacOS:$PATH
-source ~/.profile
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
+# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
+# load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
@@ -74,10 +72,15 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 	git
-	zsh-autosuggestions
-	zsh-syntax-highlighting
 	gh
 )
+# Manually source Brew-installed plugins
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# zsh-completions
+fpath+=/opt/homebrew/share/zsh-completions
+autoload -U compinit && compinit
 
 source $ZSH/oh-my-zsh.sh
 
@@ -92,22 +95,50 @@ source $ZSH/oh-my-zsh.sh
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch $(uname -m)"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias vi=nvim
-alias ls='exa -G'
-alias ll='exa -lh'
-alias lsa='exa -lahFG'
-alias cr='cargo'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias vi=nvim
+alias grep='rg --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.venv,venv}'
+
+# Enable Vi mode
+bindkey -v
+
+# Ctrl+F accepts autosuggestions
+bindkey '^F' autosuggest-accept
+
+# Bind Ctrl+R for reverse search
+bindkey -M viins '^R' history-incremental-search-backward
+bindkey -M vicmd '^R' history-incremental-search-backward
+
+# Optional: Ctrl+S forward search
+stty -ixon
+bindkey -M viins '^S' history-incremental-search-forward
+bindkey -M vicmd '^S' history-incremental-search-forward
+
+# Show Vi mode in right prompt dynamically
+function zle-keymap-select {
+  if [[ $KEYMAP == vicmd ]]; then
+    RPS1="%F{red}--NORMAL--%f"
+  else
+    RPS1="%F{green}--INSERT--%f"
+  fi
+  zle reset-prompt
+}
+zle -N zle-keymap-select
+
+export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
